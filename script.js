@@ -16,29 +16,21 @@
 var apiKey = "1244d2a48badc345c9b4913a87c4a16a";
 var city = "Miami";
 var queryUrlOne = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
-var queryUrlTwo = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`;
-var lat;
-var lon;
 
 function getApiOne (url) {
     fetch(url)
-        .then (function(response) {
-            return response.json();
-        })
-        .then (function(data) {
-            lat = data.coord.lat;
-                console.log(lat);
-            lon = data.coord.lon;
-                console.log(lon);
-            console.log(queryUrlTwo);
-        })
-    fetch(queryUrlTwo)
-        .then (function(response) {
-            return response.json();
-        })
-        .then (function(data) {
-            console.log(data);
+        .then (response => response.json())
+        .then (async function(data) {
+            latitude = data.coord.lat;
+            longitude = data.coord.lon;
+
+            var response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`);
+            response.json().then((data_1) => {
+                console.log(data_1);
+            });
         })
 }
 
 getApiOne(queryUrlOne);
+
+
