@@ -1,16 +1,16 @@
 $(function () {
 
-// WHEN I click on a city in the search history
-// THEN I am again presented with current and future conditions for that city
-
 var buttonEl = document.querySelector(".button");
 var historyEl = document.querySelector("#search-history");
+var clearEl = document.querySelector(".clear");
 var city;
 var cityHistory = [];
 
+// button that starts the search up once clicked
 buttonEl.addEventListener("click", startPage);
 
 function loadCity() {
+    // sets the city variable to whatever the user last submitted
     var lastCity = localStorage.getItem("lastPicked");
     if (lastCity) {
       city = lastCity;
@@ -21,45 +21,35 @@ function loadCity() {
       getWeather();
     }
   }
+
 loadCity();
 
-function renderHistory() {
-    cityList = localStorage.getItem("cities").split(",");
-    console.log(cityList);
-    for (var i = 0; i < cityList.length; i++) {
-        var cityItem = document.createElement("button");
-        cityItem.textContent = cityList[i];
-        historyEl.appendChild(cityItem);
-    }
-}
-renderHistory();
-
+// starts up the webpage
 function startPage(e) {
     e.preventDefault();
     saveCity();
     getWeather();
 }
 
+// saves in local storage the last picked city
 function saveCity() {
     city = $("#search-bar").val();
     localStorage.setItem("lastPicked", city);
-    cityHistory.push(city);
-    localStorage.setItem("cities", cityHistory);
-    return city;
 }
-
     function getWeather () {
         var apiKey = "1244d2a48badc345c9b4913a87c4a16a";
-        var queryUrlOne = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+        var queryUrl = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
         var dateNow = dayjs().format('YYYY-MM-DD');
 
-        fetch(queryUrlOne)
+        fetch(queryUrl)
             .then (response => response.json())
             .then (async function(data) {
                 latitude = data.coord.lat;
                 longitude = data.coord.lon;
                 var response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`);
                 response.json().then((data_1) => {
+
+                    // setting/formatting of required pieces of data from the request
                     currentTemp = Math.round((((data.main.temp-273.15)*1.8)+32) * 100) / 100;
                     currentWind = Math.round((data.wind.speed * 2.236936) * 100) / 100;
                     currentHumidity = data.main.humidity;
@@ -72,6 +62,7 @@ function saveCity() {
                     $("#1 .humidity").text(`Humidity: ${currentHumidity}%`);
                     $("#1 .name-date").text(nameDate);
 
+                    // loops through the items required in the array for the 5 forecast days
                     for (var i = 4; i < 40; i = i + 8) {
                         temp = Math.round((((data_1.list[i].main.temp-273.15)*1.8)+32) * 100) / 100;
                         wind = Math.round((data_1.list[i].wind.speed * 2.236936) * 100) / 100;
