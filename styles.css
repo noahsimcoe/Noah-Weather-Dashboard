@@ -78,3 +78,8 @@ header h1 {
     border-top: 2px solid black;
     margin-top: 1rem;
 }
+
+.icon {
+    width: 45px;
+    height: 45px;
+}

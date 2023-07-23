@@ -10,6 +10,7 @@ $(function () {
 
 var buttonEl = document.querySelector(".button");
 var city;
+var icon;
 
 buttonEl.addEventListener("click", saveCity);
 
@@ -37,6 +38,9 @@ function saveCity() {
                     currentWind = Math.round((data.wind.speed * 2.236936) * 100) / 100;
                     currentHumidity = data.main.humidity;
                     nameDate = `${data.name} (${dateNow})`;
+                    firstIcon = data.weather[0].icon;
+                    iconUrl = `http://openweathermap.org/img/w/${firstIcon}.png`;
+                    $("#1 .icon").attr('src', iconUrl);
                     $("#1 .temp").text(`Temp: ${currentTemp}°F`);
                     $("#1 .wind").text(`Wind: ${currentWind} MPH`);
                     $("#1 .humidity").text(`Humidity: ${currentHumidity}%`);
@@ -47,6 +51,9 @@ function saveCity() {
                         wind = Math.round((data_1.list[i].wind.speed * 2.236936) * 100) / 100;
                         humidity = data_1.list[i].main.humidity;
                         date = (data_1.list[i].dt_txt).split(" ");
+                        icon = data_1.list[i].weather[0].icon;
+                        iconUrl = `http://openweathermap.org/img/w/${icon}.png`;
+                        $(`#${i} .icon`).attr('src', iconUrl);
                         $(`#${i} .date`).text(date[0]);
                         $(`#${i} .temp`).text(`Temp: ${temp}°F`);
                         $(`#${i} .wind`).text(`Wind: ${wind} MPH`);
