@@ -38,7 +38,7 @@ function saveCity() {
 }
     function getWeather () {
         var apiKey = "1244d2a48badc345c9b4913a87c4a16a";
-        var queryUrl = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+        var queryUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
         var dateNow = dayjs().format('YYYY-MM-DD');
 
         fetch(queryUrl)
@@ -46,7 +46,7 @@ function saveCity() {
             .then (async function(data) {
                 latitude = data.coord.lat;
                 longitude = data.coord.lon;
-                var response = await fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`);
+                var response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`);
                 response.json().then((data_1) => {
 
                     // setting/formatting of required pieces of data from the request
@@ -55,7 +55,7 @@ function saveCity() {
                     currentHumidity = data.main.humidity;
                     nameDate = `${data.name} (${dateNow})`;
                     firstIcon = data.weather[0].icon;
-                    iconUrl = `http://openweathermap.org/img/w/${firstIcon}.png`;
+                    iconUrl = `https://openweathermap.org/img/w/${firstIcon}.png`;
                     $("#1 .icon").attr('src', iconUrl);
                     $("#1 .temp").text(`Temp: ${currentTemp}°F`);
                     $("#1 .wind").text(`Wind: ${currentWind} MPH`);
@@ -71,7 +71,7 @@ function saveCity() {
                         date1 = date[0].split("-");
                         date2 = date1[1] + "/" + date1[2];
                         icon = data_1.list[i].weather[0].icon;
-                        iconUrl = `http://openweathermap.org/img/w/${icon}.png`;
+                        iconUrl = `https://openweathermap.org/img/w/${icon}.png`;
                         $(`#${i} .icon`).attr('src', iconUrl);
                         $(`#${i} .date`).text(date2);
                         $(`#${i} .temp`).text(`Temp: ${temp}°F`);
