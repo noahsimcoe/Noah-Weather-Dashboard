@@ -1,33 +1,59 @@
 $(function () {
 
-// WHEN I view current weather conditions for that city
-// THEN I am presented with an icon representation of weather conditions
 // WHEN I click on a city in the search history
 // THEN I am again presented with current and future conditions for that city
 
-// search button to press
-// area for past searches to be stored (local storage)
-
 var buttonEl = document.querySelector(".button");
+var historyEl = document.querySelector("#search-history");
 var city;
-var icon;
+var cityHistory = [];
 
-buttonEl.addEventListener("click", saveCity);
+buttonEl.addEventListener("click", startPage);
+
+function loadCity() {
+    var lastCity = localStorage.getItem("lastPicked");
+    if (lastCity) {
+      city = lastCity;
+      getWeather();
+      // if there is not a last picked city, Los Angeles is the default
+    } else {
+      city = "Los Angeles";
+      getWeather();
+    }
+  }
+loadCity();
+
+function renderHistory() {
+    cityList = localStorage.getItem("cities").split(",");
+    console.log(cityList);
+    for (var i = 0; i < cityList.length; i++) {
+        var cityItem = document.createElement("button");
+        cityItem.textContent = cityList[i];
+        historyEl.appendChild(cityItem);
+    }
+}
+renderHistory();
+
+function startPage(e) {
+    e.preventDefault();
+    saveCity();
+    getWeather();
+}
 
 function saveCity() {
-    var city = document.getElementById('search-bar').value;
-    localStorage.setItem("city", city);
-    // resets the input area after the click
-    document.getElementById('search-bar').value = "";
-    location.reload();
+    city = $("#search-bar").val();
+    localStorage.setItem("lastPicked", city);
+    cityHistory.push(city);
+    localStorage.setItem("cities", cityHistory);
+    return city;
 }
-    var apiKey = "1244d2a48badc345c9b4913a87c4a16a";
-    var city = localStorage.getItem("city");
-    var queryUrlOne = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
-    var dateNow = dayjs().format('YYYY-MM-DD');
 
-    function getApiOne (url) {
-        fetch(url)
+    function getWeather () {
+        var apiKey = "1244d2a48badc345c9b4913a87c4a16a";
+        var queryUrlOne = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+        var dateNow = dayjs().format('YYYY-MM-DD');
+
+        fetch(queryUrlOne)
             .then (response => response.json())
             .then (async function(data) {
                 latitude = data.coord.lat;
@@ -64,7 +90,6 @@ function saveCity() {
                 });
             })
     }
-    getApiOne(queryUrlOne)
 });
 
 
