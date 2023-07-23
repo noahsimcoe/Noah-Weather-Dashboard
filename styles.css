@@ -12,6 +12,7 @@ header h1 {
 .name-date {
     font-weight: bold;
     font-size: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .date {
@@ -73,3 +74,7 @@ header h1 {
     padding-bottom: .5rem;
 }
 
+#search-history {
+    border-top: 2px solid black;
+    margin-top: 1rem;
+}

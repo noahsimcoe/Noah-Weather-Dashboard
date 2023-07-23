@@ -1,21 +1,27 @@
 $(function () {
-// GIVEN a weather dashboard with form inputs
-// WHEN I search for a city
-// THEN I am presented with current and future conditions for that city and that city is added to the search history
+
 // WHEN I view current weather conditions for that city
-// THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, and the the wind speed
-// WHEN I view future weather conditions for that city
-// THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
+// THEN I am presented with an icon representation of weather conditions
 // WHEN I click on a city in the search history
 // THEN I am again presented with current and future conditions for that city
 
-// search bar area
 // search button to press
 // area for past searches to be stored (local storage)
-// current and future conditions of selected city
 
+var buttonEl = document.querySelector(".button");
+var city;
+
+buttonEl.addEventListener("click", saveCity);
+
+function saveCity() {
+    var city = document.getElementById('search-bar').value;
+    localStorage.setItem("city", city);
+    // resets the input area after the click
+    document.getElementById('search-bar').value = "";
+    location.reload();
+}
     var apiKey = "1244d2a48badc345c9b4913a87c4a16a";
-    var city = "Kansas City";
+    var city = localStorage.getItem("city");
     var queryUrlOne = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
     var dateNow = dayjs().format('YYYY-MM-DD');
 
@@ -45,17 +51,10 @@ $(function () {
                         $(`#${i} .temp`).text(`Temp: ${temp}°F`);
                         $(`#${i} .wind`).text(`Wind: ${wind} MPH`);
                         $(`#${i} .humidity`).text(`Humidity: ${humidity}%`);
-
                     }
-// result = dayjs().add(dayjs.duration({'days' : 1}))
-//const a = dayjs()
-//const b = a.add(7, 'day')
-
-// date =
                 });
             })
     }
-
     getApiOne(queryUrlOne)
 });
 
