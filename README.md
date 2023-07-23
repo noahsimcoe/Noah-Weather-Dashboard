@@ -18,9 +18,10 @@ https://openweathermap.org/forecast5
 
 ## Deployed Application
 Here is the link to access the deployed application. 
-
+https://noahsimcoe.github.io/Noah-Weather-Dashboard/
 
 Additionally, here is a screenshot of what it looks like.
+![Screenshot 2023-07-23 at 6 48 14 PM](https://github.com/noahsimcoe/Noah-Weather-Dashboard/assets/109931528/d07f0d05-1289-4bfb-a03b-dea9113e45a8)
 
 
 
