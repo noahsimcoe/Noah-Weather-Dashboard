@@ -13,11 +13,11 @@ $(function () {
 // search button to press
 // area for past searches to be stored (local storage)
 // current and future conditions of selected city
-    var tempEl = document.querySelector(".temp");
 
     var apiKey = "1244d2a48badc345c9b4913a87c4a16a";
     var city = "Kansas City";
     var queryUrlOne = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+    var dateNow = dayjs().format('YYYY-MM-DD');
 
     function getApiOne (url) {
         fetch(url)
@@ -27,19 +27,31 @@ $(function () {
                 longitude = data.coord.lon;
                 var response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`);
                 response.json().then((data_1) => {
-                    var currentTemp = Math.round((((data.main.temp-273.15)*1.8)+32) * 100) / 100;
-                    var currentWind = Math.round((data.wind.speed * 2.236936) * 100) / 100;
-                    var currentHumidity = data.main.humidity;
-                    console.log(`Temp: ${currentTemp}°F`, `Wind: ${currentWind} MPH`, `Humidity: ${currentHumidity}%`);
+                    currentTemp = Math.round((((data.main.temp-273.15)*1.8)+32) * 100) / 100;
+                    currentWind = Math.round((data.wind.speed * 2.236936) * 100) / 100;
+                    currentHumidity = data.main.humidity;
+                    nameDate = `${data.name} (${dateNow})`;
+                    $("#1 .temp").text(`Temp: ${currentTemp}°F`);
+                    $("#1 .wind").text(`Wind: ${currentWind} MPH`);
+                    $("#1 .humidity").text(`Humidity: ${currentHumidity}%`);
+                    $("#1 .name-date").text(nameDate);
 
-                    console.log(data_1);
                     for (var i = 4; i < 40; i = i + 8) {
-                        `#${i} .temp`.textContent = (Math.round((((data_1.list[i].main.temp-273.15)*1.8)+32) * 100) / 100)
-                        // wind = Math.round((data_1.list[i].wind.speed * 2.236936) * 100) / 100;
-                        // humidity = data_1.list[i].main.humidity;
-                        // console.log(`Temp: ${temp}°F`, `Wind: ${wind} MPH`, `Humidity: ${humidity}%`);
-                    }
+                        temp = Math.round((((data_1.list[i].main.temp-273.15)*1.8)+32) * 100) / 100;
+                        wind = Math.round((data_1.list[i].wind.speed * 2.236936) * 100) / 100;
+                        humidity = data_1.list[i].main.humidity;
+                        date = (data_1.list[i].dt_txt).split(" ");
+                        $(`#${i} .date`).text(date[0]);
+                        $(`#${i} .temp`).text(`Temp: ${temp}°F`);
+                        $(`#${i} .wind`).text(`Wind: ${wind} MPH`);
+                        $(`#${i} .humidity`).text(`Humidity: ${humidity}%`);
 
+                    }
+// result = dayjs().add(dayjs.duration({'days' : 1}))
+//const a = dayjs()
+//const b = a.add(7, 'day')
+
+// date =
                 });
             })
     }
