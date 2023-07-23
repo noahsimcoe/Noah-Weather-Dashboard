@@ -38,7 +38,7 @@ function saveCity() {
 }
     function getWeather () {
         var apiKey = "1244d2a48badc345c9b4913a87c4a16a";
-        var queryUrl = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+        var queryUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
         var dateNow = dayjs().format('YYYY-MM-DD');
 
         fetch(queryUrl)
