@@ -1,0 +1,75 @@
+header {
+    background-color: rgb(33, 33, 182);
+}
+
+header h1 {
+    text-align: center;
+    font-size: 2rem;
+    color: white;
+    font-weight: bold;
+}
+
+.name-date {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.date {
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+.card {
+    background-color: lightslategray;
+    color: white;
+    margin: 0px .4rem;
+}
+
+.box {
+    border: 2px solid black;
+    margin-top: 2rem;
+}
+
+#five-day {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+.margin-help-right {
+    margin-right: 50px;
+}
+
+.margin-help-left {
+    margin-left: 10px;
+}
+
+#search-heading {
+    font-size: 1.75rem;
+}
+
+#search-box {
+    padding-right: 0px;
+}
+
+.button {
+    display: block;
+	width: 100%;
+    margin-top: .75rem;
+}
+
+#search-bar {
+    display: block;
+	width: 100%;
+}
+
+.space {
+    padding-top: .5rem;
+}
+
+.wind {
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+}
+
