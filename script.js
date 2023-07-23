@@ -51,10 +51,12 @@ function saveCity() {
                         wind = Math.round((data_1.list[i].wind.speed * 2.236936) * 100) / 100;
                         humidity = data_1.list[i].main.humidity;
                         date = (data_1.list[i].dt_txt).split(" ");
+                        date1 = date[0].split("-");
+                        date2 = date1[1] + "/" + date1[2];
                         icon = data_1.list[i].weather[0].icon;
                         iconUrl = `http://openweathermap.org/img/w/${icon}.png`;
                         $(`#${i} .icon`).attr('src', iconUrl);
-                        $(`#${i} .date`).text(date[0]);
+                        $(`#${i} .date`).text(date2);
                         $(`#${i} .temp`).text(`Temp: ${temp}°F`);
                         $(`#${i} .wind`).text(`Wind: ${wind} MPH`);
                         $(`#${i} .humidity`).text(`Humidity: ${humidity}%`);
