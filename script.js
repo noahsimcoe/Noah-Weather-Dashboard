@@ -38,7 +38,7 @@ function saveCity() {
 }
     function getWeather () {
         var apiKey = "1244d2a48badc345c9b4913a87c4a16a";
-        var queryUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+        var queryUrl = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
         var dateNow = dayjs().format('YYYY-MM-DD');
 
         fetch(queryUrl)
@@ -46,7 +46,7 @@ function saveCity() {
             .then (async function(data) {
                 latitude = data.coord.lat;
                 longitude = data.coord.lon;
-                var response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`);
+                var response = await fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`);
                 response.json().then((data_1) => {
 
                     // setting/formatting of required pieces of data from the request
